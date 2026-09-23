@@ -199,6 +199,13 @@
     .feats { grid-template-columns: 1fr; }
     .plans { grid-template-columns: 1fr; }
   }
+  /* No celular a tabela Gratis vs. Completo cabe inteira: com o min-width de 620px as colunas
+     Gratis e Completo ficavam escondidas a direita, sem nenhuma dica de que dava para arrastar. */
+  @media (max-width: 640px) {
+    #gratis-completo table { min-width: 0; }
+    #gratis-completo th, #gratis-completo td { padding: 11px 10px; font-size: 0.86rem; }
+    #gratis-completo thead th { font-size: 0.82rem; }
+  }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 <style>
