@@ -1,14 +1,14 @@
 /* Estilo das paginas de termos e privacidade (mesmos tokens do index.html) */
 :root {
   --ground: #F5F6F4; --surface: #FFFFFF; --ink: #16181D; --ink-soft: #52565E;
-  --ink-faint: #868B93; --line: #D9DCD6; --copper: #B4652F;
+  --ink-faint: #868B93; --line: #D9DCD6; --copper: #2563EB;
   --display: "Chakra Petch", "Segoe UI Semibold", system-ui, sans-serif;
   --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --ground: #101216; --surface: #191C22; --ink: #EDEEEA; --ink-soft: #A7ACB4;
-    --ink-faint: #767C85; --line: #2A2E36; --copper: #E08B4C;
+    --ink-faint: #767C85; --line: #2A2E36; --copper: #5B93FF;
   }
 }
 * { box-sizing: border-box; }
