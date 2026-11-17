@@ -11,525 +11,402 @@
 <meta property="og:image" content="https://guirodriguesxz.github.io/guilhermitico-tweaks/og.jpg">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guilhermitico Tweaks">
+<meta name="twitter:description" content="Seu Windows sem a gordura que veio de fábrica. 88 ajustes explicados em português, com ponto de restauração e desfazer.">
+<meta name="twitter:image" content="https://guirodriguesxz.github.io/guilhermitico-tweaks/og.jpg">
 <link rel="canonical" href="https://guirodriguesxz.github.io/guilhermitico-tweaks/">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#16181D">
+<meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <title>Guilhermitico Tweaks — otimizador e debloat para Windows 10 e 11</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<style>
-  :root {
-    --ground: #F5F6F4;
-    --surface: #FFFFFF;
-    --surface-sunk: #ECEEEA;
-    --ink: #16181D;
-    --ink-soft: #52565E;
-    --ink-faint: #868B93;
-    --line: #D9DCD6;
-    --copper: #2563EB;
-    --copper-soft: #DCE7FB;
-    --signal: #2F7A4F;
-    --warn: #8A6A1F;
-    --display: "Chakra Petch", "Segoe UI Semibold", system-ui, sans-serif;
-    --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-    --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ground: #101216;
-      --surface: #191C22;
-      --surface-sunk: #14161B;
-      --ink: #EDEEEA;
-      --ink-soft: #A7ACB4;
-      --ink-faint: #767C85;
-      --line: #2A2E36;
-      --copper: #5B93FF;
-      --copper-soft: #172238;
-      --signal: #5FB183;
-      --warn: #D2AC5A;
-    }
-  }
-  :root[data-theme="dark"] {
-    --ground: #101216;
-    --surface: #191C22;
-    --surface-sunk: #14161B;
-    --ink: #EDEEEA;
-    --ink-soft: #A7ACB4;
-    --ink-faint: #767C85;
-    --line: #2A2E36;
-    --copper: #5B93FF;
-    --copper-soft: #172238;
-    --signal: #5FB183;
-    --warn: #D2AC5A;
-  }
-
-  body {
-    background: var(--ground);
-    color: var(--ink);
-    font-family: var(--body);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 1080px; margin-inline: auto; padding-inline: 20px; }
-  section { padding-block: clamp(48px, 7vw, 88px); }
-  h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
-  h1 { font-size: clamp(2.1rem, 5.4vw, 3.6rem); letter-spacing: -0.01em; }
-  h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
-  h3 { font-size: 1.05rem; }
-  p { margin: 0; }
-  .eyebrow {
-    font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--copper); margin-bottom: 14px;
-  }
-  .lead { color: var(--ink-soft); font-size: 1.06rem; max-width: 62ch; }
-
-  /* ---------- topo ---------- */
-  .topbar {
-    border-bottom: 1px solid var(--line); background: var(--surface);
-    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
-  }
-  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
-  .brand { font-family: var(--display); font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
-  .brand .mark {
-    width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center;
-    background: var(--copper); color: #fff; font-size: 0.85rem; font-weight: 700;
-  }
-  .btn {
-    font-family: var(--body); font-weight: 600; font-size: 0.94rem;
-    padding: 11px 20px; border-radius: 8px; border: 1px solid transparent;
-    text-decoration: none; display: inline-block; cursor: pointer;
-    transition: transform .12s ease, background .12s ease;
-  }
-  .btn-primary { background: var(--copper); color: #fff; }
-  .btn-primary:hover { transform: translateY(-1px); }
-  .btn-ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
-  .btn:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
-
-  /* ---------- hero ---------- */
-  .hero { display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: start; }
-  .hero-claim { margin-top: 18px; }
-  .hero ul { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 11px; }
-  .hero li { display: grid; grid-template-columns: 18px 1fr; gap: 12px; color: var(--ink-soft); }
-  .tick { color: var(--copper); font-weight: 700; }
-
-  .buybox {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-    padding: 26px; display: grid; gap: 16px;
-  }
-  .price { display: flex; align-items: baseline; gap: 8px; font-family: var(--mono); }
-  .price .cur { font-size: 1rem; color: var(--ink-faint); }
-  .price .val { font-size: 3rem; font-weight: 600; letter-spacing: -0.02em; }
-  .price .old { font-size: 1rem; color: var(--ink-faint); text-decoration: line-through; }
-  .garantia { font-size: 0.84rem; color: var(--ink-faint); text-align: center; margin: 0; }
-  .buybox .note { font-size: 0.86rem; color: var(--ink-faint); }
-  .buybox dl { margin: 0; display: grid; gap: 9px; font-size: 0.9rem; }
-  .buybox .row { display: flex; justify-content: space-between; gap: 12px; border-top: 1px dashed var(--line); padding-top: 9px; }
-  .buybox .row dt { color: var(--ink-faint); }
-  .buybox .row dd { margin: 0; font-family: var(--mono); }
-
-  /* ---------- numeros ---------- */
-  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-  .fact { background: var(--surface); padding: 20px 18px; }
-  .fact .n { font-family: var(--mono); font-size: 1.8rem; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .fact .t { font-size: 0.85rem; color: var(--ink-soft); margin-top: 2px; }
-
-  /* ---------- listas de recursos ---------- */
-  .feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 34px; }
-  .feat { display: grid; gap: 7px; align-content: start; }
-  .feat h3 { font-family: var(--body); font-weight: 600; }
-  .feat p { color: var(--ink-soft); font-size: 0.94rem; }
-  .feat .k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: .1em; color: var(--ink-faint); text-transform: uppercase; }
-
-  /* ---------- comparacao ---------- */
-  .tablewrap { overflow-x: auto; margin-top: 30px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-  table { border-collapse: collapse; width: 100%; min-width: 620px; }
-  th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); font-size: 0.93rem; }
-  thead th { font-family: var(--display); font-size: 0.9rem; background: var(--surface-sunk); }
-  tbody tr:last-child td { border-bottom: 0; }
-  td.mark { font-family: var(--mono); font-weight: 600; }
-  .yes { color: var(--signal); }
-  .no { color: var(--ink-faint); }
-  .partial { color: var(--warn); }
-  caption { caption-side: bottom; text-align: left; padding: 12px 16px; font-size: 0.83rem; color: var(--ink-faint); }
-
-  /* ---------- planos ---------- */
-  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
-  .plan { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 26px; display: grid; gap: 14px; align-content: start; }
-  .plan.destaque { border-color: var(--copper); box-shadow: 0 14px 34px -22px rgba(37, 99, 235, .5); }
-  .plan .tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--copper); }
-  .plan ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; font-size: .93rem; color: var(--ink-soft); }
-  .plan li { display: grid; grid-template-columns: 16px 1fr; gap: 10px; }
-
-  /* ---------- perguntas ---------- */
-  .faq { margin-top: 28px; display: grid; gap: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
-  details { border-bottom: 1px solid var(--line); }
-  details:last-child { border-bottom: 0; }
-  summary { cursor: pointer; padding: 16px 18px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 14px; align-items: center; }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; font-family: var(--mono); color: var(--copper); font-size: 1.1rem; }
-  details[open] summary::after { content: "–"; }
-  details p { padding: 0 18px 17px; color: var(--ink-soft); font-size: .94rem; max-width: 72ch; }
-  summary:focus-visible { outline: 2px solid var(--copper); outline-offset: -2px; }
-
-  code.cmd, code.hash {
-    font-family: var(--mono); font-size: .82rem; background: var(--surface-sunk);
-    border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px;
-  }
-  code.hash { display: block; padding: 10px 12px; word-break: break-all; color: var(--ink-soft); }
-  .aviso {
-    margin-top: 26px; border-left: 3px solid var(--warn); background: var(--surface-sunk);
-    padding: 16px 18px; border-radius: 0 10px 10px 0; font-size: .92rem; color: var(--ink-soft);
-  }
-  .req { font-family: var(--mono); font-size: .84rem; color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 26px; }
-  footer { border-top: 1px solid var(--line); background: var(--surface); }
-  footer .wrap { padding-block: 26px; display: flex; flex-wrap: wrap; gap: 12px 26px; justify-content: space-between; font-size: .86rem; color: var(--ink-faint); }
-
-
-  /* ===== Telas do app ===== */
-  .shot-main { margin-top: 26px; }
-  .shot {
-    display: block; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
-    background: var(--surface-sunk); text-decoration: none;
-  }
-  .shot img { display: block; width: 100%; height: auto; }
-  .shot figcaption {
-    padding: 12px 16px; font-size: .88rem; color: var(--ink-soft);
-    border-top: 1px solid var(--line); background: var(--surface);
-  }
-  .shot figcaption b { color: var(--ink); font-weight: 600; }
-  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 18px; }
-
-  @media (max-width: 860px) {
-    .hero { grid-template-columns: 1fr; gap: 30px; }
-    .facts { grid-template-columns: 1fr 1fr; }
-    .shots { grid-template-columns: 1fr; }
-    .feats { grid-template-columns: 1fr; }
-    .plans { grid-template-columns: 1fr; }
-  }
-  /* No celular a tabela Gratis vs. Completo cabe inteira: com o min-width de 620px as colunas
-     Gratis e Completo ficavam escondidas a direita, sem nenhuma dica de que dava para arrastar. */
-  @media (max-width: 640px) {
-    #gratis-completo table { min-width: 0; }
-    #gratis-completo th, #gratis-completo td { padding: 11px 10px; font-size: 0.86rem; }
-    #gratis-completo thead th { font-size: 0.82rem; }
-  }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-</style>
-<style>
-  /* o Pages nao tem o esqueleto do Claude: repoe o basico */
-  * { box-sizing: border-box; }
-  html { color-scheme: light dark; }
-  body { margin: 0; }
-  img { max-width: 100%; }
-</style>
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
 <header class="topbar">
   <div class="wrap">
-    <div class="brand"><span class="mark">G</span> Guilhermitico Tweaks</div>
-    <a class="btn btn-primary" href="https://pay.kiwify.com.br/qhLtovF">Comprar</a>
+    <a class="brand" href="./"><img src="favicon.png" width="30" height="30" alt="">Guilhermitico Tweaks</a>
+    <nav class="nav" aria-label="Seções do site">
+      <a href="#recursos">Recursos</a>
+      <a href="#gratis-completo">Grátis e completo</a>
+      <a href="#planos">Planos</a>
+      <a href="#perguntas">Perguntas</a>
+    </nav>
+    <div class="top-actions">
+      <button type="button" class="icon-btn" id="tema" aria-label="Alternar tema claro e escuro">◐</button>
+      <a class="btn btn-primary btn-sm" href="https://pay.kiwify.com.br/qhLtovF">Comprar</a>
+    </div>
   </div>
 </header>
 
-<section>
-  <div class="wrap hero">
+<main id="conteudo">
+
+<section class="hero">
+  <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow">Windows 10 e 11 · 64 bits</p>
-      <h1>Seu Windows sem a gordura que veio de fábrica.</h1>
-      <p class="lead hero-claim">
-        Tira telemetria, propaganda no Menu Iniciar, apps que você nunca abriu e travas que roubam
-        FPS. Cada mudança é explicada em português, tem botão de desfazer, e o app cria um ponto de
-        restauração antes de encostar no sistema.
-      </p>
-      <ul>
-        <li><span class="tick">→</span> <span>Um clique por perfil: Gamer, Trabalho, Notebook ou Privacidade máxima.</span></li>
-        <li><span class="tick">→</span> <span>Tudo que o app aplicou fica registrado — e volta atrás com um botão.</span></li>
-        <li><span class="tick">→</span> <span>Instala programas (Chrome, Steam, Discord, VLC…) sem sites de download.</span></li>
-        <li><span class="tick">→</span> <span>Sem mensalidade. Paga uma vez, é seu.</span></li>
+      <p class="pill"><i></i>Windows 10 e 11 · 64 bits · 7 dias de teste grátis</p>
+      <h1>Seu Windows sem a <span>gordura</span> que veio de fábrica.</h1>
+      <p class="lead">Tira telemetria, propaganda no Menu Iniciar, apps que você nunca abriu e travas que
+        roubam FPS. Cada mudança é explicada em português, tem botão de desfazer, e o app cria um ponto de
+        restauração antes de encostar no sistema.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="https://pay.kiwify.com.br/qhLtovF">Quero otimizar meu PC</a>
+        <a class="btn btn-ghost btn-lg" href="#gratis-completo">Ver o que é grátis</a>
+      </div>
+      <ul class="checks">
+        <li>Um clique por perfil: Gamer, Trabalho, Notebook ou Privacidade máxima.</li>
+        <li>Tudo que o app aplicou fica registrado, e volta atrás com um botão.</li>
+        <li>Instala programas (Chrome, Steam, Discord, VLC…) sem sites de download.</li>
+        <li>Sem mensalidade. Paga uma vez, é seu.</li>
       </ul>
     </div>
 
-    <div class="buybox">
+    <aside class="card buybox" aria-label="Licença pessoal">
       <div>
-        <p class="eyebrow" style="margin-bottom:6px">Licença pessoal</p>
-        <div class="price"><span class="cur">R$</span><span class="val">34,90</span></div>
-        <p class="note">Pagamento único · sem assinatura</p>
+        <p class="eyebrow" style="margin-bottom:8px">Licença pessoal</p>
+        <p class="price"><span class="cur">R$</span><span class="val">34,90</span></p>
+        <p class="fine" style="margin-top:6px">Pagamento único · sem assinatura</p>
       </div>
-      <a class="btn btn-primary" href="https://pay.kiwify.com.br/qhLtovF" style="text-align:center">Quero otimizar meu PC</a>
-      <p class="garantia">🔒 Pagamento seguro pela Kiwify · garantia de 7 dias: não gostou, devolvemos o valor</p>
-      <dl>
-        <div class="row"><dt>Teste antes</dt><dd>7 dias com tudo, depois Debloat, instalar programas e Desfazer seguem grátis</dd></div>
-        <div class="row"><dt>Validade</dt><dd>vitalícia</dd></div>
-        <div class="row"><dt>Atualizações</dt><dd>incluídas</dd></div>
-        <div class="row"><dt>Suporte</dt><dd>por e-mail</dd></div>
+      <a class="btn btn-primary btn-lg btn-block" href="https://pay.kiwify.com.br/qhLtovF">Quero otimizar meu PC</a>
+      <p class="fine center">Pagamento seguro pela Kiwify · garantia de 7 dias: não gostou, devolvemos o valor</p>
+      <dl class="rows">
+        <div><dt>Teste antes</dt><dd>7 dias com tudo; depois Debloat, instalar programas e Desfazer seguem grátis</dd></div>
+        <div><dt>Computadores</dt><dd>até 3 seus</dd></div>
+        <div><dt>Validade</dt><dd>vitalícia</dd></div>
+        <div><dt>Atualizações</dt><dd>incluídas</dd></div>
+        <div><dt>Suporte</dt><dd>por e-mail</dd></div>
       </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="alt" style="padding-block:32px" aria-label="Números">
+  <div class="wrap grid c3" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">
+    <p><strong style="font-size:1.9rem;display:block;line-height:1.2">88</strong><span class="fine">ajustes disponíveis</span></p>
+    <p><strong style="font-size:1.9rem;display:block;line-height:1.2">103</strong><span class="fine">itens testados a cada versão</span></p>
+    <p><strong style="font-size:1.9rem;display:block;line-height:1.2">4</strong><span class="fine">perfis prontos</span></p>
+    <p><strong style="font-size:1.9rem;display:block;line-height:1.2">7 dias</strong><span class="fine">com tudo liberado, e o básico é grátis para sempre</span></p>
+  </div>
+</section>
+
+<section id="telas">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Por dentro</p>
+      <h2>É isto que você abre depois de instalar.</h2>
+      <p class="lead">Sem linha de comando, sem arquivo .bat, sem janela preta. Cada ajuste tem nome e
+        explicação em português, e a bolinha do lado direito diz o quanto ele mexe no sistema. O app tem tema
+        claro e escuro e foi ajustado para leitor de tela, teclado e bom contraste.</p>
+    </div>
+
+    <div class="appwin reveal">
+      <div class="appbar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="tabs" role="tablist" aria-label="Telas do app"><button type="button" class="tab" role="tab" id="tab-debloat" aria-controls="pn-debloat" aria-selected="true" tabindex="0">Debloat</button><button type="button" class="tab" role="tab" id="tab-dashboard" aria-controls="pn-dashboard" aria-selected="false" tabindex="-1">Dashboard</button><button type="button" class="tab" role="tab" id="tab-privacidade" aria-controls="pn-privacidade" aria-selected="false" tabindex="-1">Privacidade</button><button type="button" class="tab" role="tab" id="tab-desfazer" aria-controls="pn-desfazer" aria-selected="false" tabindex="-1">Desfazer</button></div>
+        <div class="tabpanel" role="tabpanel" id="pn-debloat" aria-labelledby="tab-debloat">
+          <img src="img/debloat.png" width="1919" height="1033" alt="Aba Debloat do Guilhermitico Tweaks, com a lista de apps pré-instalados do Windows e uma caixa de seleção em cada um.">
+          <p><b>Debloat — grátis para sempre.</b> Os apps que vieram junto com o Windows, um por um, com o que já está aplicado marcado em verde.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="pn-dashboard" aria-labelledby="tab-dashboard" hidden>
+          <img src="img/dashboard.png" width="1919" height="1030" loading="lazy" alt="Dashboard com a nota de diagnóstico do PC, processador, placa de vídeo, memória e os quatro perfis de otimização.">
+          <p><b>Ele lê o seu PC.</b> Nota de diagnóstico, peças, versão do Windows e os 4 perfis de um clique.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="pn-privacidade" aria-labelledby="tab-privacidade" hidden>
+          <img src="img/privacidade.png" width="1919" height="1032" loading="lazy" alt="Aba Privacidade com ajustes de telemetria, Cortana, ID de publicidade e anúncios no Menu Iniciar, cada um com uma explicação.">
+          <p><b>Cada ajuste explicado.</b> Você entende antes de aplicar, não depois.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="pn-desfazer" aria-labelledby="tab-desfazer" hidden>
+          <img src="img/desfazer.png" width="1919" height="1032" loading="lazy" alt="Tela de Configurações com o botão Desfazer tudo que o app aplicou.">
+          <p><b>Volta atrás com um botão.</b> Sem depender de ponto de restauração.</p>
+        </div>
     </div>
   </div>
 </section>
 
-<section style="padding-top:0">
+<section id="recursos" class="alt">
   <div class="wrap">
-    <div class="facts">
-      <div class="fact"><div class="n">88</div><div class="t">ajustes disponíveis</div></div>
-      <div class="fact"><div class="n">103</div><div class="t">itens testados a cada versão</div></div>
-      <div class="fact"><div class="n">4</div><div class="t">perfis prontos</div></div>
-      <div class="fact"><div class="n">7 dias</div><div class="t">com tudo liberado, e o básico é grátis para sempre</div></div>
+    <div class="sec-head">
+      <p class="eyebrow">O que ele faz</p>
+      <h2>Mexe no que importa, e explica cada mexida.</h2>
+    </div>
+    <div class="chips" role="group" aria-label="Filtrar recursos">
+      <button type="button" class="chip" aria-pressed="true" data-f="todos">Todos</button>
+      <button type="button" class="chip" aria-pressed="false" data-f="free">Grátis para sempre</button>
+      <button type="button" class="chip" aria-pressed="false" data-f="full">Licença completa</button>
+    </div>
+    <div class="grid c3" id="feats">
+      <article class="feat reveal" data-k="free"><span class="tag free">Grátis</span><h3>Debloat</h3>
+        <p>Apps pré-instalados, atalhos promocionais, OneDrive e serviços que só ligam para a nuvem. Você escolhe item por item, ou usa um perfil.</p></article>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Privacidade</h3>
+        <p>Telemetria, ID de publicidade, Cortana, Recall, Copilot, sugestões no Iniciar e anúncios na tela de bloqueio. Cada item com uma frase dizendo o que muda.</p></article>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Performance</h3>
+        <p>Game DVR desligado, prioridade de multimídia, aceleração do mouse fora, plano de energia no talo, apps em segundo plano barrados.</p></article>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Preferências</h3>
+        <p>Ajustes de uso do dia a dia do Windows, com a mesma explicação em português e o mesmo desfazer dos outros.</p></article>
+      <article class="feat reveal" data-k="free"><span class="tag free">Grátis</span><h3>Instalar apps</h3>
+        <p>Instala programas (Chrome, Steam, Discord, VLC…) pelo winget, direto dos fabricantes, sem sites de download.</p></article>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Config e correções</h3>
+        <p>Reparo de arquivos do sistema, reset de rede, reset do Windows Update e limpeza de disco, tudo em um lugar, sem caçar comando no PowerShell.</p></article>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Windows Update</h3>
+        <p>Três perfis: <b>Recomendado</b> (adia atualizações de recursos por 365 dias e as de qualidade por 4, e evita reiniciar com sessão aberta), <b>Padrão</b> e <b>Desativar</b>. A tela mostra qual está em uso e confere se o perfil realmente pegou.</p></article>
+      <article class="feat reveal" data-k="free"><span class="tag free">Grátis</span><h3>Guias de BIOS e GPU</h3>
+        <p>Guias dentro do app para as configurações de BIOS e da placa de vídeo que o app não aplica sozinho.</p></article>
+      <article class="feat reveal" data-k="free"><span class="tag free">Grátis</span><h3>Ponto de restauração e Desfazer</h3>
+        <p>O app cria o ponto de restauração e <em>confere</em> se foi mesmo criado; se falhar, pergunta antes de continuar. Ele lembra o que aplicou, e um botão devolve o Windows ao estado anterior.</p></article>
     </div>
   </div>
 </section>
 
-<section>
+<section id="como-funciona">
   <div class="wrap">
-    <p class="eyebrow">Por dentro</p>
-    <h2>É isto que você abre depois de instalar.</h2>
-    <p class="lede" style="max-width:62ch">Sem linha de comando, sem arquivo .bat, sem janela preta. Cada ajuste tem nome
-      e explicação em português, e a bolinha do lado direito diz o quanto ele mexe no sistema.</p>
-
-    <figure class="shot shot-main">
-      <a href="img/debloat.png" target="_blank" rel="noopener">
-        <img src="img/debloat.png" width="1919" height="1033" loading="lazy"
-             alt="Aba Debloat do Guilhermitico Tweaks, com a lista de apps pré-instalados do Windows e uma caixa de seleção em cada um."></a>
-      <figcaption><b>Debloat — grátis para sempre.</b> Os apps que vieram junto com o Windows, um por um,
-        com o que já está aplicado marcado em verde.</figcaption>
-    </figure>
-
-    <div class="shots">
-      <figure class="shot">
-        <a href="img/dashboard.png" target="_blank" rel="noopener">
-          <img src="img/dashboard.png" width="1919" height="1030" loading="lazy"
-               alt="Dashboard com a nota de diagnóstico do PC, processador, placa de vídeo, memória e os quatro perfis de otimização."></a>
-        <figcaption><b>Ele lê o seu PC.</b> Nota de diagnóstico, peças, versão do Windows e os 4 perfis de um clique.</figcaption>
-      </figure>
-      <figure class="shot">
-        <a href="img/desfazer.png" target="_blank" rel="noopener">
-          <img src="img/desfazer.png" width="1919" height="1032" loading="lazy"
-               alt="Tela de Configurações com o botão Desfazer tudo que o app aplicou."></a>
-        <figcaption><b>Volta atrás com um botão.</b> Sem depender de ponto de restauração.</figcaption>
-      </figure>
-      <figure class="shot">
-        <a href="img/privacidade.png" target="_blank" rel="noopener">
-          <img src="img/privacidade.png" width="1919" height="1032" loading="lazy"
-               alt="Aba Privacidade com ajustes de telemetria, Cortana, ID de publicidade e anúncios no Menu Iniciar, cada um com uma explicação."></a>
-        <figcaption><b>Cada ajuste explicado.</b> Você entende antes de aplicar, não depois.</figcaption>
-      </figure>
+    <div class="sec-head">
+      <p class="eyebrow">Como funciona</p>
+      <h2>Do teste à licença, sem susto.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Instale e teste 7 dias</h3><p>Tudo liberado, sem cartão e sem cobrança. O teste não recomeça se você reinstalar o app.</p></div>
+      <div class="step reveal"><h3>Aplique com segurança</h3><p>O app cria e confere um ponto de restauração antes de mexer no sistema, e você desfaz com um botão.</p></div>
+      <div class="step reveal"><h3>Continue grátis ou compre</h3><p>Depois dos 7 dias, Debloat, instalar programas e Desfazer seguem grátis. A licença completa é paga uma vez.</p></div>
     </div>
   </div>
 </section>
 
-<section style="background:var(--surface-sunk); border-block:1px solid var(--line)">
+<section id="comparacao" class="alt">
   <div class="wrap">
-    <p class="eyebrow">O que ele faz</p>
-    <h2>Mexe no que importa, e explica cada mexida.</h2>
-    <div class="feats">
-      <div class="feat">
-        <span class="k">Privacidade</span>
-        <h3>Corta o rastreamento</h3>
-        <p>Telemetria, ID de publicidade, Cortana, Recall, Copilot, sugestões no Iniciar e anúncios na tela de bloqueio. Cada item com uma frase dizendo o que muda.</p>
-      </div>
-      <div class="feat">
-        <span class="k">Desempenho</span>
-        <h3>Devolve os recursos ao jogo</h3>
-        <p>Game DVR desligado, prioridade de multimídia, aceleração do mouse fora, plano de energia no talo, apps em segundo plano barrados.</p>
-      </div>
-      <div class="feat">
-        <span class="k">Limpeza</span>
-        <h3>Remove o que veio junto</h3>
-        <p>Apps pré-instalados, atalhos promocionais, OneDrive e serviços que só ligam para a nuvem. Você escolhe item por item, ou usa um perfil.</p>
-      </div>
-      <div class="feat">
-        <span class="k">Segurança</span>
-        <h3>Ponto de restauração antes</h3>
-        <p>O app cria o ponto e <em>confere</em> se foi mesmo criado. Se falhar, ele pergunta antes de continuar em vez de seguir no escuro.</p>
-      </div>
-      <div class="feat">
-        <span class="k">Reversível</span>
-        <h3>Desfazer tudo</h3>
-        <p>Ele lembra exatamente o que aplicou. Um botão devolve o Windows ao estado anterior, sem precisar caçar o que foi mudado.</p>
-      </div>
-      <div class="feat">
-        <span class="k">Manutenção</span>
-        <h3>Ferramentas de sempre</h3>
-        <p>Reparo de arquivos do sistema, reset de rede, reset do Windows Update e limpeza de disco — tudo em um lugar, sem caçar comando no PowerShell.</p>
-      </div>
+    <div class="sec-head">
+      <p class="eyebrow">Comparação honesta</p>
+      <h2>Existe ferramenta gratuita. Veja onde cada uma serve.</h2>
+      <p class="lead">Se você é técnico e não se incomoda com PowerShell, o WinUtil resolve e é grátis. O que
+        você paga aqui é a diferença de cuidado: português, instalador, volta atrás e alguém para chamar.</p>
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <p class="eyebrow">Comparação honesta</p>
-    <h2>Existe ferramenta gratuita. Veja onde cada uma serve.</h2>
-    <p class="lead" style="margin-top:12px">
-      Se você é técnico e não se incomoda com PowerShell, o WinUtil resolve e é grátis. O que você
-      paga aqui é a diferença de cuidado: português, instalador, volta atrás e alguém para chamar.
-    </p>
-    <div class="tablewrap">
-      <table>
+    <div class="tablewrap" tabindex="0" role="region" aria-label="Tabela comparando as ferramentas">
+      <table style="min-width:620px">
         <caption>Comparação feita em setembro de 2026, com base no que cada ferramenta oferece publicamente.</caption>
         <thead>
-          <tr><th>&nbsp;</th><th>Guilhermitico</th><th>Script grátis (WinUtil)</th><th>"Otimizador" de anúncio</th></tr>
+          <tr><th scope="col"><span class="visually-hidden" style="position:absolute;left:-9999px">Característica</span></th><th scope="col">Guilhermitico</th><th scope="col">Script grátis (WinUtil)</th><th scope="col">"Otimizador" de anúncio</th></tr>
         </thead>
         <tbody>
-          <tr><td>Em português, do começo ao fim</td><td class="mark yes">sim</td><td class="mark no">não</td><td class="mark partial">às vezes</td></tr>
-          <tr><td>Instala como programa, com atalho</td><td class="mark yes">sim</td><td class="mark no">script</td><td class="mark yes">sim</td></tr>
-          <tr><td>Ponto de restauração verificado</td><td class="mark yes">sim</td><td class="mark partial">parcial</td><td class="mark no">não</td></tr>
-          <tr><td>Desfazer tudo que foi aplicado</td><td class="mark yes">sim</td><td class="mark partial">item a item</td><td class="mark no">não</td></tr>
-          <tr><td>Explica o que cada ajuste faz</td><td class="mark yes">sim</td><td class="mark partial">resumido</td><td class="mark no">não</td></tr>
-          <tr><td>Vende "limpeza de registro" que não existe</td><td class="mark yes">nunca</td><td class="mark yes">nunca</td><td class="mark no">é o negócio dele</td></tr>
-          <tr><td>Preço</td><td class="mark">R$ 34,90</td><td class="mark">grátis</td><td class="mark">assinatura</td></tr>
+          <tr><th scope="row">Em português, do começo ao fim</th><td class="yes">sim</td><td class="no">não</td><td class="partial">às vezes</td></tr>
+          <tr><th scope="row">Instala como programa, com atalho</th><td class="yes">sim</td><td class="no">script</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Ponto de restauração verificado</th><td class="yes">sim</td><td class="partial">parcial</td><td class="no">não</td></tr>
+          <tr><th scope="row">Desfazer tudo que foi aplicado</th><td class="yes">sim</td><td class="partial">item a item</td><td class="no">não</td></tr>
+          <tr><th scope="row">Explica o que cada ajuste faz</th><td class="yes">sim</td><td class="partial">resumido</td><td class="no">não</td></tr>
+          <tr><th scope="row">Vende "limpeza de registro" que não existe</th><td class="yes">nunca</td><td class="yes">nunca</td><td class="no">é o negócio dele</td></tr>
+          <tr><th scope="row">Preço</th><td>R$ 34,90</td><td>grátis</td><td>assinatura</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="aviso">
-      <strong>O que este app não faz:</strong> não promete dobrar FPS, não "limpa registro" (isso não
-      acelera nada), não ativa Windows nem Office pirata, e não mexe em nada sem você marcar.
-    </div>
+    <div class="aviso"><strong>O que este app não faz:</strong> não promete dobrar FPS, não "limpa registro"
+      (isso não acelera nada), não ativa Windows nem Office pirata, e não mexe em nada sem você marcar.</div>
   </div>
 </section>
 
 <section id="gratis-completo">
   <div class="wrap">
-    <p class="eyebrow">Grátis vs. Completo</p>
-    <h2>O que é grátis para sempre, e o que é da licença completa.</h2>
-    <p class="lead" style="margin-top:12px">
-      Nada de segurança fica atrás de pagamento: o Desfazer é grátis, sempre. O que separa as duas
-      versões é profundidade e conveniência — os perfis prontos, os ajustes de Desempenho e
-      Privacidade, as ferramentas de Manutenção e o histórico completo.
-    </p>
+    <div class="sec-head">
+      <p class="eyebrow">Grátis vs. Completo</p>
+      <h2>O que é grátis para sempre, e o que é da licença completa.</h2>
+      <p class="lead">Nada de segurança fica atrás de pagamento: o Desfazer é grátis, sempre. O que separa as
+        duas versões é profundidade e conveniência — os perfis prontos, os ajustes de Privacidade,
+        Performance, Preferências e Windows Update, as ferramentas de Config e correções e o histórico completo.</p>
+    </div>
     <div class="tablewrap">
       <table>
-        <thead>
-          <tr><th>Recurso</th><th>Grátis</th><th>Completo</th></tr>
-        </thead>
+        <thead><tr><th scope="col">Recurso</th><th scope="col">Grátis</th><th scope="col">Completo</th></tr></thead>
         <tbody>
-          <tr><td>Debloat — remover apps do Windows</td><td class="mark yes">sim, sem limite</td><td class="mark yes">sim</td></tr>
-          <tr><td>Instalar programas</td><td class="mark partial">sim, até 3 por vez</td><td class="mark yes">sim, quantos quiser de uma vez</td></tr>
-          <tr><td>Desfazer tudo que foi aplicado</td><td class="mark yes">sim, sempre</td><td class="mark yes">sim</td></tr>
-          <tr><td>Perfis de um clique — Gamer, Trabalho, Notebook, Privacidade máxima</td><td class="mark no">não</td><td class="mark yes">sim</td></tr>
-          <tr><td>Privacidade — telemetria, ID de publicidade, Cortana…</td><td class="mark no">não</td><td class="mark yes">sim</td></tr>
-          <tr><td>Desempenho — Game DVR, prioridade, plano de energia…</td><td class="mark no">não</td><td class="mark yes">sim</td></tr>
-          <tr><td>Manutenção — reparo do sistema, reset de rede e do Windows Update, limpeza de disco</td><td class="mark no">não</td><td class="mark yes">sim</td></tr>
-          <tr><td>Histórico completo — todas as sessões, com data e exportação</td><td class="mark no">só a sessão atual</td><td class="mark yes">sim</td></tr>
+          <tr><th scope="row">Debloat — remover apps do Windows</th><td class="yes">sim, sem limite</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Instalar programas</th><td class="partial">sim, até 3 por vez</td><td class="yes">sim, quantos quiser de uma vez</td></tr>
+          <tr><th scope="row">Desfazer tudo que foi aplicado</th><td class="yes">sim, sempre</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Guias de BIOS e GPU</th><td class="yes">sim</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Perfis de um clique — Gamer, Trabalho, Notebook, Privacidade máxima</th><td class="no">não</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Privacidade — telemetria, ID de publicidade, Cortana…</th><td class="no">não</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Performance — Game DVR, prioridade, plano de energia…</th><td class="no">não</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Preferências e Windows Update (perfis Recomendado, Padrão, Desativar)</th><td class="no">não</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Config e correções — reparo do sistema, reset de rede e do Windows Update, limpeza de disco</th><td class="no">não</td><td class="yes">sim</td></tr>
+          <tr><th scope="row">Histórico completo — todas as sessões, com data e exportação</th><td class="no">só a sessão atual</td><td class="yes">sim</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="aviso">
-      <strong>Teste antes de decidir:</strong> os primeiros 7 dias vêm com a coluna Completo inteira
-      liberada, sem cartão nem cobrança. Depois disso o app não para de funcionar — ele volta para a
-      coluna Grátis desta tabela, sem prazo para acabar.
-    </div>
+    <div class="aviso"><strong>Teste antes de decidir:</strong> os primeiros 7 dias vêm com a coluna Completo
+      inteira liberada, sem cartão nem cobrança. Os 7 dias não recomeçam se você desinstalar e reinstalar o
+      app. Depois disso o app não para de funcionar — ele volta para a coluna Grátis desta tabela, sem prazo
+      para acabar.</div>
   </div>
 </section>
 
-<section id="planos" style="background:var(--surface-sunk); border-block:1px solid var(--line)">
+<section id="planos" class="alt">
   <div class="wrap">
-    <p class="eyebrow">Planos</p>
-    <h2>Pague uma vez. Sem mensalidade.</h2>
-    <div class="plans">
-      <div class="plan destaque">
+    <div class="sec-head">
+      <p class="eyebrow">Planos</p>
+      <h2>Pague uma vez. Sem mensalidade.</h2>
+    </div>
+    <div class="grid c2">
+      <article class="card reveal plan destaque">
         <span class="tag">Pessoal</span>
-        <div class="price"><span class="cur">R$</span><span class="val">34,90</span></div>
+        <p class="price"><span class="cur">R$</span><span class="val">34,90</span></p>
         <ul>
-          <li><span class="tick">→</span> <span>Uso em até 3 computadores seus</span></li>
-          <li><span class="tick">→</span> <span>Licença vitalícia, sem renovação</span></li>
-          <li><span class="tick">→</span> <span>Atualizações incluídas</span></li>
-          <li><span class="tick">→</span> <span>7 dias com tudo liberado; depois o Debloat, o Desfazer e a instalação de programas (até 3 por vez) continuam grátis</span></li>
+          <li>Uso em até 3 computadores seus</li>
+          <li>Licença vitalícia, sem renovação</li>
+          <li>Atualizações incluídas</li>
+          <li>7 dias com tudo liberado; depois o Debloat, o Desfazer e a instalação de programas (até 3 por vez) continuam grátis</li>
         </ul>
-        <a class="btn btn-primary" href="https://pay.kiwify.com.br/qhLtovF" style="text-align:center">Comprar licença pessoal</a>
-        <p class="garantia">🔒 Pagamento seguro · garantia de 7 dias</p>
-      </div>
-      <div class="plan">
+        <a class="btn btn-primary btn-block" href="https://pay.kiwify.com.br/qhLtovF">Comprar licença pessoal</a>
+        <p class="fine center">Pagamento seguro · garantia de 7 dias</p>
+      </article>
+      <article class="card reveal plan">
         <span class="tag">Técnico</span>
-        <div class="price"><span class="cur">R$</span><span class="val">149,90</span></div>
+        <p class="price"><span class="cur">R$</span><span class="val">149,90</span></p>
         <ul>
-          <li><span class="tick">→</span> <span>Uso em computadores de clientes</span></li>
-          <li><span class="tick">→</span> <span>Modo linha de comando para aplicar sua configuração padrão</span></li>
-          <li><span class="tick">→</span> <span>Exporta e importa a seleção entre máquinas</span></li>
-          <li><span class="tick">→</span> <span>Suporte com prioridade</span></li>
+          <li>Uso em computadores de clientes, sem limite de máquinas</li>
+          <li>Modo linha de comando para aplicar sua configuração padrão</li>
+          <li>Exporta e importa a seleção entre máquinas</li>
+          <li>Suporte com prioridade</li>
         </ul>
-        <a class="btn btn-ghost" href="https://pay.kiwify.com.br/E8YKjd3" style="text-align:center">Comprar licença de técnico</a>
-        <p class="garantia">🔒 Pagamento seguro · garantia de 7 dias</p>
-      </div>
+        <a class="btn btn-ghost btn-block" href="https://pay.kiwify.com.br/E8YKjd3">Comprar licença de técnico</a>
+        <p class="fine center">Pagamento seguro · garantia de 7 dias</p>
+      </article>
     </div>
-    <div class="req">
-      <span>Windows 10 ou 11, 64 bits</span>
-      <span>~150 MB em disco</span>
-      <span>Precisa de administrador</span>
-      <span>Internet só para instalar programas e atualizar</span>
-    </div>
+    <ul class="reqs">
+      <li>Windows 10 ou 11, 64 bits</li>
+      <li>~150 MB em disco</li>
+      <li>Precisa de administrador</li>
+      <li>Internet só para instalar programas, ativar a licença e atualizar</li>
+    </ul>
   </div>
 </section>
 
-<section>
+<section id="perguntas">
   <div class="wrap">
-    <p class="eyebrow">Perguntas frequentes</p>
-    <h2>O que costumam perguntar antes de comprar.</h2>
+    <div class="sec-head">
+      <p class="eyebrow">Perguntas frequentes</p>
+      <h2>O que costumam perguntar antes de comprar.</h2>
+    </div>
     <div class="faq">
       <details open>
         <summary>Tem risco de quebrar meu Windows?</summary>
-        <p>Todo programa que mexe no sistema tem algum risco — quem disser o contrário está mentindo.
+        <div class="body"><p>Todo programa que mexe no sistema tem algum risco — quem disser o contrário está mentindo.
         Por isso o app cria um ponto de restauração e confere se ele foi mesmo criado antes de
         aplicar qualquer coisa, marca em vermelho os ajustes mais agressivos, e guarda tudo que fez
         para desfazer depois. Os ajustes de risco alto ficam de fora dos perfis: só são aplicados se
-        você marcar um por um.</p>
+        você marcar um por um.</p></div>
       </details>
       <details>
         <summary>O Windows mostra um aviso quando eu instalo. É vírus?</summary>
+        <div class="body">
         <p>Não. Esse aviso azul ("O Windows protegeu o computador") aparece em todo instalador que
         ainda não tem certificado de assinatura, que é um selo pago. Clique em <em>Mais informações</em>
         e depois em <em>Executar assim mesmo</em>. Se preferir, passe o instalador no VirusTotal antes —
         é o que eu faria no seu lugar.</p>
         <p>Para ter certeza de que o arquivo que você baixou é o original, abra o PowerShell na pasta
-        do download e rode <code class="cmd">Get-FileHash GuilhermiticoTweaks-Setup.msi</code>. O
+        do download e rode <code>Get-FileHash GuilhermiticoTweaks-Setup.msi</code>. O
         resultado tem que ser exatamente este:</p>
         <p><code class="hash">932a227d2bfce3c8aa1778b42f30e414e03c933bee7b3e87b8440e4211799d2b</code></p>
+        </div>
       </details>
       <details>
         <summary>Funciona em quantos computadores?</summary>
-        <p>A licença pessoal vale para até <strong>3 computadores seus</strong>. Se formatar, dá para
-        ativar de novo com a mesma chave — ela não "queima". Se precisar trocar de computador e a
-        ativação for recusada por já ter 3, é só escrever e eu libero uma vaga. Se você conserta PCs
-        de outras pessoas, a licença certa é a de técnico, sem limite de máquinas.</p>
+        <div class="body"><p>A licença pessoal vale para até <strong>3 computadores seus</strong>. O app confere esse
+        limite a cada abertura, quando há internet. Se formatar, dá para ativar de novo com a mesma
+        chave — ela não "queima". Se precisar trocar de computador e a ativação for recusada por já
+        ter 3, é só escrever e eu libero uma vaga. Se você conserta PCs de outras pessoas, a licença
+        certa é a de técnico, sem limite de máquinas.</p></div>
       </details>
       <details>
         <summary>Vou ganhar mais FPS?</summary>
-        <p>Depende do seu PC. Em máquina limpa e potente, a diferença é pequena. Em PC cheio de
+        <div class="body"><p>Depende do seu PC. Em máquina limpa e potente, a diferença é pequena. Em PC cheio de
         programa em segundo plano, notebook com pouca memória ou Windows de fábrica com bloatware, a
         diferença aparece — principalmente em travadas e tempo de resposta, mais do que no número
-        médio de FPS. Ninguém sério promete número exato.</p>
+        médio de FPS. Ninguém sério promete número exato.</p></div>
       </details>
       <details>
         <summary>E se eu não gostar?</summary>
-        <p>São 7 dias com o app inteiro liberado, antes de pagar — e o app nunca para de funcionar: depois disso ficam grátis o Debloat (sem limite), o botão de desfazer e a instalação de programas (até 3 de uma vez). Use, aplique, desfaça, veja
-        se serve. Se depois da compra algo não funcionar como está escrito aqui, escreva para
-        <a href="mailto:guirodrigues2080@gmail.com" style="color:var(--copper)">guirodrigues2080@gmail.com</a>.</p>
+        <div class="body"><p>São 7 dias com o app inteiro liberado, antes de pagar — e o app nunca para de funcionar:
+        depois disso ficam grátis o Debloat (sem limite), o botão de desfazer e a instalação de
+        programas (até 3 de uma vez). Use, aplique, desfaça, veja se serve. Se depois da compra algo
+        não funcionar como está escrito aqui, escreva para
+        <a href="mailto:guirodrigues2080@gmail.com">guirodrigues2080@gmail.com</a>.</p></div>
       </details>
       <details>
         <summary>Apareceu "Não é possível abrir este link ms-gamebar" no app Xbox. É defeito?</summary>
+        <div class="body">
         <p>Não. É o efeito esperado do ajuste que desliga a Xbox Game Bar e a gravação em segundo plano
-        (ele fica na aba Desempenho). O app Xbox tenta abrir a Game Bar ao iniciar um jogo, não
+        (ele fica na aba Performance). O app Xbox tenta abrir a Game Bar ao iniciar um jogo, não
         encontra e mostra esse aviso. É só um aviso: os jogos abrem normalmente.</p>
         <p>Se o aviso incomodar, abra o app, vá em <em>Desfazer</em> e reverta o ajuste
         "Desativar Xbox Game Bar e Game DVR". O aviso some e o resto continua como está.</p>
+        </div>
       </details>
       <details>
-        <summary>Precisa de internet?</summary>
-        <p>Não para os ajustes: eles rodam offline. A internet é usada para instalar programas pela
-        aba de apps, para buscar atualização do próprio Guilhermitico e uma única vez, na hora de
-        colar a chave, para conferir quantos computadores já a usam (o app envia só a chave e um
-        código anônimo do PC). Depois disso, tudo funciona offline.</p>
+        <summary>Precisa de internet? O que o app envia?</summary>
+        <div class="body">
+        <p>Não para os ajustes: eles rodam offline. A internet é usada para instalar programas pela aba
+        de apps, para buscar atualização do próprio Guilhermitico (e uma lista de chaves bloqueadas, no
+        GitHub) e para o teste e a licença.</p>
+        <p>Durante o teste de 7 dias o app envia ao servidor só um código anônimo do PC (um hash, nunca
+        o número original do Windows), para o teste não recomeçar ao reinstalar. Na ativação, envia
+        também a chave. Não há coleta de dados pessoais nem rastreamento por terceiros. Os detalhes
+        estão na <a href="privacidade.html">política de privacidade</a>.</p>
+        </div>
       </details>
     </div>
   </div>
 </section>
 
+<section>
+  <div class="wrap center" style="display:grid;gap:18px;justify-items:center">
+    <h2>Teste 7 dias com tudo liberado.</h2>
+    <p class="lead">Se não servir, o Debloat, o Desfazer e a instalação de programas continuam grátis.</p>
+    <a class="btn btn-primary btn-lg" href="https://pay.kiwify.com.br/qhLtovF">Comprar licença pessoal — R$ 34,90</a>
+  </div>
+</section>
+
+</main>
+
 <footer>
   <div class="wrap">
     <span>Guilhermitico Tweaks · Windows 10 e 11</span>
-    <span><a href="termos.html" style="color:var(--copper)">Termos de uso</a> · <a href="privacidade.html" style="color:var(--copper)">Política de privacidade</a></span>
-    <span>Dúvida antes de comprar? <a href="mailto:guirodrigues2080@gmail.com" style="color:var(--copper)">guirodrigues2080@gmail.com</a></span>
+    <nav aria-label="Rodapé">
+      <a href="termos.html">Termos de uso</a>
+      <a href="privacidade.html">Política de privacidade</a>
+    </nav>
+    <span>Dúvida antes de comprar? <a href="mailto:guirodrigues2080@gmail.com">guirodrigues2080@gmail.com</a></span>
   </div>
 </footer>
+<div class="stickybuy" id="sticky" aria-hidden="true"><span><strong>R$ 34,90</strong>pagamento único</span><a class="btn btn-primary btn-sm" href="https://pay.kiwify.com.br/qhLtovF" tabindex="-1">Comprar</a></div>
+<script>
+(function(){
+  var $=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var r=document.documentElement;
+  document.getElementById("tema").addEventListener("click",function(){
+    var dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+    r.dataset.theme=dark?"light":"dark";
+    try{localStorage.setItem("tema",r.dataset.theme)}catch(e){}
+  });
+  var tabs=$('[role=tab]');
+  function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;
+    var p=document.getElementById(x.getAttribute("aria-controls"));p.hidden=!on;if(on)$("img",p).forEach(function(i){i.loading="eager"})})}
+  tabs.forEach(function(t,i){
+    t.addEventListener("click",function(){sel(t)});
+    t.addEventListener("keydown",function(e){var n=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(!n)return;
+      var x=tabs[(i+n+tabs.length)%tabs.length];sel(x);x.focus();e.preventDefault()});
+  });
+  var chips=$(".chip");
+  chips.forEach(function(c){c.addEventListener("click",function(){
+    chips.forEach(function(x){x.setAttribute("aria-pressed",x===c)});
+    $("#feats .feat").forEach(function(f){f.hidden=c.dataset.f!=="todos"&&f.dataset.k!==c.dataset.f});
+  })});
+  var rv=$(".reveal");
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});
+    rv.forEach(function(x){io.observe(x)});
+  }else rv.forEach(function(x){x.classList.add("in")});
+  var sb=document.getElementById("sticky"),hero=document.querySelector(".hero"),pl=document.getElementById("planos");
+  function chk(){var y=hero.getBoundingClientRect().bottom<0,p=pl.getBoundingClientRect();var on=y&&!(p.top<innerHeight&&p.bottom>0);
+    sb.classList.toggle("on",on);sb.setAttribute("aria-hidden",!on);$("a",sb)[0].tabIndex=on?0:-1}
+  addEventListener("scroll",chk,{passive:true});chk();
+})();
+</script>
 </body>
 </html>
