@@ -21,7 +21,7 @@
   --mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0b0f17;
     --surface: #131926;
     --surface-2: #0f1420;
@@ -39,6 +39,25 @@
     --shadow: 0 18px 40px -24px rgba(0, 0, 0, .8);
   }
 }
+:root[data-theme="dark"] {
+  --bg: #0b0f17;
+  --surface: #131926;
+  --surface-2: #0f1420;
+  --text: #eef1f7;
+  --muted: #a3acbf;
+  --line: #262e40;
+  --accent: #7aa7ff;
+  --accent-soft: #16233f;
+  --btn-bg: #7aa7ff;
+  --btn-fg: #08101f;
+  --btn-hover: #9bbcff;
+  --ok: #62c98f;
+  --warn: #e0b45a;
+  --no: #9099ad;
+  --shadow: 0 18px 40px -24px rgba(0, 0, 0, .8);
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -189,4 +208,73 @@ footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; }
+}
+
+/* ===== versão interativa ===== */
+.hero { position: relative; overflow: hidden; }
+.hero::before, .hero::after { content: ""; position: absolute; z-index: -1; border-radius: 50%; filter: blur(80px); opacity: .45; pointer-events: none; }
+.hero::before { width: 480px; height: 480px; background: var(--accent); top: -180px; right: -120px; animation: float 14s ease-in-out infinite alternate; }
+.hero::after { width: 360px; height: 360px; background: #7c3aed; bottom: -200px; left: -100px; opacity: .25; animation: float 18s ease-in-out infinite alternate-reverse; }
+@keyframes float { to { transform: translate(40px, 30px) scale(1.08); } }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); font-size: .86rem; font-weight: 600; color: var(--muted); margin-bottom: 20px; }
+.pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 var(--ok); animation: pulse 2s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 8px transparent; } }
+.hero h1 span { background: linear-gradient(90deg, var(--accent), #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); transform: translateX(-120%); }
+.btn-primary:hover::after { transform: translateX(120%); transition: transform .7s ease; }
+.icon-btn { width: 44px; height: 44px; display: inline-grid; place-items: center; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer; font-size: 1.1rem; }
+.icon-btn:hover { border-color: var(--accent); }
+.top-actions { display: flex; gap: 10px; align-items: center; }
+
+/* janela de app com abas */
+.appwin { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.appbar { display: flex; gap: 6px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.appbar i { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
+.tabs { display: flex; gap: 6px; padding: 10px; overflow-x: auto; border-bottom: 1px solid var(--line); }
+.tab { font: inherit; font-weight: 600; font-size: .92rem; padding: 9px 16px; min-height: 40px; border-radius: 10px; border: 1px solid transparent; background: transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.tab:hover { color: var(--text); }
+.tab[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.tabpanel img { width: 100%; }
+.tabpanel[hidden] { display: none; }
+.tabpanel p { padding: 14px 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .94rem; }
+.tabpanel p b { color: var(--text); }
+
+/* filtros */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.chip { font: inherit; font-weight: 600; font-size: .92rem; padding: 8px 18px; min-height: 40px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
+.feat { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.feat:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+.feat[hidden] { display: none; }
+
+/* linha do tempo do teste */
+.steps { display: grid; gap: 16px; counter-reset: s; }
+@media (min-width: 820px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+.step { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 6px; }
+.step::before { counter-increment: s; content: counter(s); width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--btn-bg); color: var(--btn-fg); font-weight: 800; margin-bottom: 6px; }
+.step p { color: var(--muted); font-size: .95rem; }
+
+/* barra de compra fixa */
+.stickybuy { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(12px); border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px; transform: translateY(110%); transition: transform .3s ease; }
+.stickybuy.on { transform: none; }
+.stickybuy span { font-size: .9rem; color: var(--muted); line-height: 1.3; }
+.stickybuy strong { color: var(--text); font-size: 1.05rem; display: block; }
+@media (min-width: 860px) { .stickybuy { display: none; } }
+@media (max-width: 859px) { footer { padding-bottom: 90px; } }
+
+/* revelar ao rolar (só quando há JS) */
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .hero::before, .hero::after, .pill i { animation: none; }
+  .js .reveal { opacity: 1; transform: none; }
+}
+.brand { white-space: nowrap; }
+.stickybuy .btn { white-space: nowrap; }
+@media (max-width: 440px) {
+  .brand { font-size: .92rem; gap: 8px; }
+  .brand img { width: 26px; height: 26px; }
+  .top-actions { gap: 6px; }
+  .topbar .btn-sm { padding-inline: 12px; }
 }

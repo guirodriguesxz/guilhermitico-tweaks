@@ -21,6 +21,7 @@
 <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <title>Guilhermitico Tweaks — otimizador e debloat para Windows 10 e 11</title>
 <link rel="stylesheet" href="site.css">
+<script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -34,7 +35,10 @@
       <a href="#planos">Planos</a>
       <a href="#perguntas">Perguntas</a>
     </nav>
-    <a class="btn btn-primary btn-sm" href="https://pay.kiwify.com.br/qhLtovF">Comprar</a>
+    <div class="top-actions">
+      <button type="button" class="icon-btn" id="tema" aria-label="Alternar tema claro e escuro">◐</button>
+      <a class="btn btn-primary btn-sm" href="https://pay.kiwify.com.br/qhLtovF">Comprar</a>
+    </div>
   </div>
 </header>
 
@@ -43,7 +47,7 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow">Windows 10 e 11 · 64 bits</p>
+      <p class="pill"><i></i>Windows 10 e 11 · 64 bits · 7 dias de teste grátis</p>
       <h1>Seu Windows sem a <span>gordura</span> que veio de fábrica.</h1>
       <p class="lead">Tira telemetria, propaganda no Menu Iniciar, apps que você nunca abriu e travas que
         roubam FPS. Cada mudança é explicada em português, tem botão de desfazer, e o app cria um ponto de
@@ -98,36 +102,25 @@
         claro e escuro e foi ajustado para leitor de tela, teclado e bom contraste.</p>
     </div>
 
-    <figure class="shot">
-      <a href="img/debloat.png" target="_blank" rel="noopener">
-        <img src="img/debloat.png" width="1919" height="1033" loading="lazy"
-             alt="Aba Debloat do Guilhermitico Tweaks, com a lista de apps pré-instalados do Windows e uma caixa de seleção em cada um.">
-      </a>
-      <figcaption><b>Debloat — grátis para sempre.</b> Os apps que vieram junto com o Windows, um por um, com o que já está aplicado marcado em verde.</figcaption>
-    </figure>
-
-    <div class="shots">
-      <figure class="shot">
-        <a href="img/dashboard.png" target="_blank" rel="noopener">
-          <img src="img/dashboard.png" width="1919" height="1030" loading="lazy"
-               alt="Dashboard com a nota de diagnóstico do PC, processador, placa de vídeo, memória e os quatro perfis de otimização.">
-        </a>
-        <figcaption><b>Ele lê o seu PC.</b> Nota de diagnóstico, peças, versão do Windows e os 4 perfis de um clique.</figcaption>
-      </figure>
-      <figure class="shot">
-        <a href="img/desfazer.png" target="_blank" rel="noopener">
-          <img src="img/desfazer.png" width="1919" height="1032" loading="lazy"
-               alt="Tela de Configurações com o botão Desfazer tudo que o app aplicou.">
-        </a>
-        <figcaption><b>Volta atrás com um botão.</b> Sem depender de ponto de restauração.</figcaption>
-      </figure>
-      <figure class="shot">
-        <a href="img/privacidade.png" target="_blank" rel="noopener">
-          <img src="img/privacidade.png" width="1919" height="1032" loading="lazy"
-               alt="Aba Privacidade com ajustes de telemetria, Cortana, ID de publicidade e anúncios no Menu Iniciar, cada um com uma explicação.">
-        </a>
-        <figcaption><b>Cada ajuste explicado.</b> Você entende antes de aplicar, não depois.</figcaption>
-      </figure>
+    <div class="appwin reveal">
+      <div class="appbar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="tabs" role="tablist" aria-label="Telas do app"><button type="button" class="tab" role="tab" id="tab-debloat" aria-controls="pn-debloat" aria-selected="true" tabindex="0">Debloat</button><button type="button" class="tab" role="tab" id="tab-dashboard" aria-controls="pn-dashboard" aria-selected="false" tabindex="-1">Dashboard</button><button type="button" class="tab" role="tab" id="tab-privacidade" aria-controls="pn-privacidade" aria-selected="false" tabindex="-1">Privacidade</button><button type="button" class="tab" role="tab" id="tab-desfazer" aria-controls="pn-desfazer" aria-selected="false" tabindex="-1">Desfazer</button></div>
+        <div class="tabpanel" role="tabpanel" id="pn-debloat" aria-labelledby="tab-debloat">
+          <img src="img/debloat.png" width="1919" height="1033" alt="Aba Debloat do Guilhermitico Tweaks, com a lista de apps pré-instalados do Windows e uma caixa de seleção em cada um.">
+          <p><b>Debloat — grátis para sempre.</b> Os apps que vieram junto com o Windows, um por um, com o que já está aplicado marcado em verde.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="pn-dashboard" aria-labelledby="tab-dashboard" hidden>
+          <img src="img/dashboard.png" width="1919" height="1030" loading="lazy" alt="Dashboard com a nota de diagnóstico do PC, processador, placa de vídeo, memória e os quatro perfis de otimização.">
+          <p><b>Ele lê o seu PC.</b> Nota de diagnóstico, peças, versão do Windows e os 4 perfis de um clique.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="pn-privacidade" aria-labelledby="tab-privacidade" hidden>
+          <img src="img/privacidade.png" width="1919" height="1032" loading="lazy" alt="Aba Privacidade com ajustes de telemetria, Cortana, ID de publicidade e anúncios no Menu Iniciar, cada um com uma explicação.">
+          <p><b>Cada ajuste explicado.</b> Você entende antes de aplicar, não depois.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="pn-desfazer" aria-labelledby="tab-desfazer" hidden>
+          <img src="img/desfazer.png" width="1919" height="1032" loading="lazy" alt="Tela de Configurações com o botão Desfazer tudo que o app aplicou.">
+          <p><b>Volta atrás com um botão.</b> Sem depender de ponto de restauração.</p>
+        </div>
     </div>
   </div>
 </section>
@@ -138,30 +131,49 @@
       <p class="eyebrow">O que ele faz</p>
       <h2>Mexe no que importa, e explica cada mexida.</h2>
     </div>
-    <div class="grid c3">
-      <article class="feat"><span class="tag free">Grátis</span><h3>Debloat</h3>
+    <div class="chips" role="group" aria-label="Filtrar recursos">
+      <button type="button" class="chip" aria-pressed="true" data-f="todos">Todos</button>
+      <button type="button" class="chip" aria-pressed="false" data-f="free">Grátis para sempre</button>
+      <button type="button" class="chip" aria-pressed="false" data-f="full">Licença completa</button>
+    </div>
+    <div class="grid c3" id="feats">
+      <article class="feat reveal" data-k="free"><span class="tag free">Grátis</span><h3>Debloat</h3>
         <p>Apps pré-instalados, atalhos promocionais, OneDrive e serviços que só ligam para a nuvem. Você escolhe item por item, ou usa um perfil.</p></article>
-      <article class="feat"><span class="tag">Completo</span><h3>Privacidade</h3>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Privacidade</h3>
         <p>Telemetria, ID de publicidade, Cortana, Recall, Copilot, sugestões no Iniciar e anúncios na tela de bloqueio. Cada item com uma frase dizendo o que muda.</p></article>
-      <article class="feat"><span class="tag">Completo</span><h3>Performance</h3>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Performance</h3>
         <p>Game DVR desligado, prioridade de multimídia, aceleração do mouse fora, plano de energia no talo, apps em segundo plano barrados.</p></article>
-      <article class="feat"><span class="tag">Completo</span><h3>Preferências</h3>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Preferências</h3>
         <p>Ajustes de uso do dia a dia do Windows, com a mesma explicação em português e o mesmo desfazer dos outros.</p></article>
-      <article class="feat"><span class="tag free">Grátis</span><h3>Instalar apps</h3>
+      <article class="feat reveal" data-k="free"><span class="tag free">Grátis</span><h3>Instalar apps</h3>
         <p>Instala programas (Chrome, Steam, Discord, VLC…) pelo winget, direto dos fabricantes, sem sites de download.</p></article>
-      <article class="feat"><span class="tag">Completo</span><h3>Config e correções</h3>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Config e correções</h3>
         <p>Reparo de arquivos do sistema, reset de rede, reset do Windows Update e limpeza de disco, tudo em um lugar, sem caçar comando no PowerShell.</p></article>
-      <article class="feat"><span class="tag">Completo</span><h3>Windows Update</h3>
+      <article class="feat reveal" data-k="full"><span class="tag">Completo</span><h3>Windows Update</h3>
         <p>Três perfis: <b>Recomendado</b> (adia atualizações de recursos por 365 dias e as de qualidade por 4, e evita reiniciar com sessão aberta), <b>Padrão</b> e <b>Desativar</b>. A tela mostra qual está em uso e confere se o perfil realmente pegou.</p></article>
-      <article class="feat"><span class="tag free">Grátis</span><h3>Guias de BIOS e GPU</h3>
+      <article class="feat reveal" data-k="free"><span class="tag free">Grátis</span><h3>Guias de BIOS e GPU</h3>
         <p>Guias dentro do app para as configurações de BIOS e da placa de vídeo que o app não aplica sozinho.</p></article>
-      <article class="feat"><span class="tag free">Grátis</span><h3>Ponto de restauração e Desfazer</h3>
+      <article class="feat reveal" data-k="free"><span class="tag free">Grátis</span><h3>Ponto de restauração e Desfazer</h3>
         <p>O app cria o ponto de restauração e <em>confere</em> se foi mesmo criado; se falhar, pergunta antes de continuar. Ele lembra o que aplicou, e um botão devolve o Windows ao estado anterior.</p></article>
     </div>
   </div>
 </section>
 
-<section id="comparacao">
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Como funciona</p>
+      <h2>Do teste à licença, sem susto.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Instale e teste 7 dias</h3><p>Tudo liberado, sem cartão e sem cobrança. O teste não recomeça se você reinstalar o app.</p></div>
+      <div class="step reveal"><h3>Aplique com segurança</h3><p>O app cria e confere um ponto de restauração antes de mexer no sistema, e você desfaz com um botão.</p></div>
+      <div class="step reveal"><h3>Continue grátis ou compre</h3><p>Depois dos 7 dias, Debloat, instalar programas e Desfazer seguem grátis. A licença completa é paga uma vez.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="comparacao" class="alt">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Comparação honesta</p>
@@ -191,7 +203,7 @@
   </div>
 </section>
 
-<section id="gratis-completo" class="alt">
+<section id="gratis-completo">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Grátis vs. Completo</p>
@@ -224,14 +236,14 @@
   </div>
 </section>
 
-<section id="planos">
+<section id="planos" class="alt">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Planos</p>
       <h2>Pague uma vez. Sem mensalidade.</h2>
     </div>
     <div class="grid c2">
-      <article class="card plan destaque">
+      <article class="card reveal plan destaque">
         <span class="tag">Pessoal</span>
         <p class="price"><span class="cur">R$</span><span class="val">34,90</span></p>
         <ul>
@@ -243,7 +255,7 @@
         <a class="btn btn-primary btn-block" href="https://pay.kiwify.com.br/qhLtovF">Comprar licença pessoal</a>
         <p class="fine center">Pagamento seguro · garantia de 7 dias</p>
       </article>
-      <article class="card plan">
+      <article class="card reveal plan">
         <span class="tag">Técnico</span>
         <p class="price"><span class="cur">R$</span><span class="val">149,90</span></p>
         <ul>
@@ -265,7 +277,7 @@
   </div>
 </section>
 
-<section id="perguntas" class="alt">
+<section id="perguntas">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Perguntas frequentes</p>
@@ -362,5 +374,39 @@
     <span>Dúvida antes de comprar? <a href="mailto:guirodrigues2080@gmail.com">guirodrigues2080@gmail.com</a></span>
   </div>
 </footer>
+<div class="stickybuy" id="sticky" aria-hidden="true"><span><strong>R$ 34,90</strong>pagamento único</span><a class="btn btn-primary btn-sm" href="https://pay.kiwify.com.br/qhLtovF" tabindex="-1">Comprar</a></div>
+<script>
+(function(){
+  var $=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var r=document.documentElement;
+  document.getElementById("tema").addEventListener("click",function(){
+    var dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+    r.dataset.theme=dark?"light":"dark";
+    try{localStorage.setItem("tema",r.dataset.theme)}catch(e){}
+  });
+  var tabs=$('[role=tab]');
+  function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;
+    var p=document.getElementById(x.getAttribute("aria-controls"));p.hidden=!on;if(on)$("img",p).forEach(function(i){i.loading="eager"})})}
+  tabs.forEach(function(t,i){
+    t.addEventListener("click",function(){sel(t)});
+    t.addEventListener("keydown",function(e){var n=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(!n)return;
+      var x=tabs[(i+n+tabs.length)%tabs.length];sel(x);x.focus();e.preventDefault()});
+  });
+  var chips=$(".chip");
+  chips.forEach(function(c){c.addEventListener("click",function(){
+    chips.forEach(function(x){x.setAttribute("aria-pressed",x===c)});
+    $("#feats .feat").forEach(function(f){f.hidden=c.dataset.f!=="todos"&&f.dataset.k!==c.dataset.f});
+  })});
+  var rv=$(".reveal");
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});
+    rv.forEach(function(x){io.observe(x)});
+  }else rv.forEach(function(x){x.classList.add("in")});
+  var sb=document.getElementById("sticky"),hero=document.querySelector(".hero"),pl=document.getElementById("planos");
+  function chk(){var y=hero.getBoundingClientRect().bottom<0,p=pl.getBoundingClientRect();var on=y&&!(p.top<innerHeight&&p.bottom>0);
+    sb.classList.toggle("on",on);sb.setAttribute("aria-hidden",!on);$("a",sb)[0].tabIndex=on?0:-1}
+  addEventListener("scroll",chk,{passive:true});chk();
+})();
+</script>
 </body>
 </html>
