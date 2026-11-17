@@ -4,41 +4,57 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Política de privacidade do Guilhermitico Tweaks: o que o app e a compra coletam, para quê e como pedir a exclusão.">
-<meta name="theme-color" content="#16181D">
+<meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" href="favicon.png">
 <title>Política de privacidade · Guilhermitico Tweaks</title>
-<link rel="stylesheet" href="legal.css">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
 <header class="topbar">
   <div class="wrap">
-    <a href="./">Guilhermitico Tweaks</a>
+    <a class="brand" href="./"><img src="favicon.png" width="30" height="30" alt="">Guilhermitico Tweaks</a>
     <a class="voltar" href="./">← Voltar ao site</a>
   </div>
 </header>
 
-<main>
+<main id="conteudo" class="legal">
   <div class="wrap">
     <h1>Política de privacidade</h1>
-    <p class="data">Atualizada em 15 de outubro de 2026</p>
+    <p class="data">Atualizada em 17 de novembro de 2026</p>
 
     <p>Esta página explica, sem rodeio, o que acontece com os seus dados quando você compra e usa o
     Guilhermitico Tweaks. O responsável é Guilherme Rodrigues, que atende pelo e-mail
     <a href="mailto:guirodrigues2080@gmail.com">guirodrigues2080@gmail.com</a>.</p>
 
-    <h2>O que o aplicativo coleta</h2>
-    <p>O app não tem cadastro nem conta, não usa ferramenta de estatística nem de rastreamento e não
-    envia dados do seu computador, com <strong>uma única exceção</strong>, descrita abaixo
-    (ativação da licença). Os ajustes, o histórico do "Desfazer", a chave de licença e a data do
-    início do teste ficam só no seu PC, no registro do Windows.</p>
+    <h2>Resumo</h2>
+    <ul>
+      <li>O app não tem cadastro nem conta, não coleta dados pessoais e não usa ferramenta de estatística
+      nem rastreamento de terceiros.</li>
+      <li>Durante o teste de 7 dias e na ativação da licença, o app envia ao meu servidor um
+      <strong>identificador anônimo do PC</strong>. Na ativação, envia também a <strong>chave de licença</strong>.</li>
+      <li>Os ajustes aplicados, o histórico do "Desfazer" e as suas preferências ficam só no seu PC.</li>
+    </ul>
 
-    <h2>Ativação da licença</h2>
-    <p>Para limitar a licença pessoal a 3 computadores, quando você cola a chave o app envia ao meu
-    servidor a <strong>chave</strong> e um <strong>identificador anônimo do PC</strong>: um código
-    gerado por cálculo (hash) a partir de um número interno do Windows, do qual não dá para
-    recuperar o número original, seu nome, seu usuário nem qualquer arquivo. O servidor guarda esse
-    código junto com a chave e as datas de ativação, só para contar os computadores. Isso acontece
-    apenas na ativação. Sem internet, a ativação segue normalmente, e depois dela o app funciona
-    offline.</p>
+    <h2>Identificador anônimo do PC</h2>
+    <p>O identificador é um código gerado por cálculo (hash) a partir do <code>MachineGuid</code>, um
+    número interno do Windows. O valor original do <code>MachineGuid</code> <strong>nunca é enviado</strong>, e
+    do código não dá para recuperá-lo, nem o seu nome, o seu usuário ou qualquer arquivo seu. Ele só serve
+    para reconhecer o mesmo computador.</p>
+
+    <h2>Teste de 7 dias</h2>
+    <p>Para o teste não recomeçar toda vez que o app é reinstalado, o app consulta o meu servidor
+    enviando somente o identificador anônimo do PC. O servidor guarda esse identificador e a data de
+    início do teste. Se não houver internet, nada muda: o app segue com a data guardada no próprio PC
+    (no registro do Windows e em arquivos do app).</p>
+
+    <h2>Ativação e conferência da licença</h2>
+    <p>Quando você cola a chave, o app envia ao servidor a <strong>chave</strong> e o
+    <strong>identificador anônimo do PC</strong>. O servidor guarda esse identificador junto com a chave e
+    as datas, para limitar a licença pessoal a <strong>3 computadores</strong>. Para manter esse limite, o
+    app consulta o servidor com os mesmos dois dados a cada abertura, quando há internet. Sem internet, a
+    licença segue valendo. A licença técnica não tem limite de computadores.</p>
 
     <h2>Quando o app usa a internet</h2>
     <ul>
@@ -60,17 +76,19 @@
       <li><strong>E-mail, número do pedido, chave de licença e data da compra</strong>, para enviar a
       chave, reenviar se você perder, dar suporte e bloquear chaves em caso de reembolso ou
       compartilhamento indevido.</li>
-      <li><strong>O identificador anônimo de cada PC que ativou a chave</strong> e as datas da
-      ativação, para aplicar o limite de computadores.</li>
+      <li><strong>O identificador anônimo de cada PC</strong> que iniciou o teste ou ativou a chave, e as
+      datas, para o teste não recomeçar e para aplicar o limite de computadores.</li>
       <li>Esses dados ficam em um banco na <strong>Cloudflare</strong>, e o e-mail com a chave é
       enviado pelo <strong>Google</strong> (Gmail). Essas empresas atuam como prestadoras do serviço.</li>
       <li>Também guardo as mensagens trocadas por e-mail em um pedido de suporte.</li>
     </ul>
-    <p>Eu <strong>não vendo nem compartilho</strong> seus dados com ninguém para fins de propaganda.</p>
+    <p>Eu <strong>não vendo nem compartilho</strong> seus dados com ninguém para fins de propaganda, e o
+    site e o app não têm rastreamento de terceiros.</p>
 
     <h2>Por quanto tempo</h2>
     <p>Enquanto a licença estiver ativa, para poder atender você, e pelo prazo que a lei exigir para
-    registros de venda. Depois disso, os dados são apagados quando você pedir.</p>
+    registros de venda. Depois disso, os dados são apagados quando você pedir. O identificador do teste é
+    guardado para que o teste não recomece; se você pedir a exclusão, ele é apagado.</p>
 
     <h2>Seus direitos</h2>
     <p>Pela Lei Geral de Proteção de Dados (LGPD), você pode pedir confirmação de que existem dados
@@ -87,8 +105,7 @@
 <footer>
   <div class="wrap">
     <span>Guilhermitico Tweaks</span>
-    <a href="termos.html">Termos de uso</a>
-    <a href="./">Voltar ao site</a>
+    <nav aria-label="Rodapé"><a href="termos.html">Termos de uso</a><a href="./">Voltar ao site</a></nav>
   </div>
 </footer>
 </body>
